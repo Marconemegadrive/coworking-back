@@ -1,0 +1,2366 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Mangue Space Coworking",
+        "description": "Este projeto de coworking é parte integrante da Formação Acelerada em Programação da empresa Softex Pernambuco. O objetivo principal é desenvolver uma aplicação robusta que gerencie as operações de um espaço de coworking, com foco nas funcionalidades back-end e front-end.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3333",
+            "description": "Test API"
+        }
+    ],
+    "paths": {
+        "/nivelAcesso/": {
+            "post": {
+                "tags": ["NivelAcesso"],
+                "summary": "Criar um NivelAcesso",
+                "description": "Será possível cadastrar um nível de acesso para um usuário.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nome": "Nome teste",
+                                "nivel": 2
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/NivelAcesso"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "NivelAcesso"
+                ],
+                "summary": "Listar Níveis de acesso",
+                "description": "Será possível listar todos os níveis de acesso cadastrados no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/nivelAcesso/{id}": {
+            "get": {
+                "tags": [
+                    "NivelAcesso"
+                ],
+                "summary": "Encontrar um Nível de Acesso pelo ID",
+                "description": "Será possível encontrar um nível de acesso pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nível Acesso ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NivelAcesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Nível de acesso inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "NivelAcesso"
+                ],
+                "summary": "Atualizar um Nível de Acesso",
+                "description": "Será possível atualizar um nível de acesso pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nível Acesso ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nome": "Nome teste atualizado",
+                                "nivel": 2
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NivelAcesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Nível de acesso inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "NivelAcesso"
+                ],
+                "summary": "Deletar um Nível de Acesso",
+                "description": "Será possível deletar um nível de acesso pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nível Acesso ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NivelAcesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Nível de acesso inexistente!"
+                    }
+                }
+            }
+        },
+        "/usuario/cadastro": {
+            "post": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Criar um novo usuário",
+                "description": "Será possível cadastrar um novo usuário para acessar o sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "login": "usuario@email.com",
+                                "senha": "12345",
+                                "tipoUsuario": 1,
+                                "acessoAdm": 1,
+                                "nivelAcesso": 1,
+                                "nomeNivel": "Administrador"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário já existente!"
+                    }
+                }
+            }
+        },
+        "/usuario/autenticacao": {
+            "post": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Autenticar um usuário",
+                "description": "Será possível Autenticar um usuário para acessar o sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "login": "usuario@email.com",
+                                "senha": "12345"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuario ou senha incorretos"
+                    }
+                }
+            }
+        },
+        "/usuario/": {
+            "post": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Criar um novo usuário",
+                "description": "Será possível cadastrar um novo usuário para acessar o sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "login": "chico_science",
+                                "senha": "mangue123",
+                                "tipoUsuario": 1,
+                                "acessoAdm": 1,
+                                "idNivelAcesso": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar usuário"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Listar Usuários",
+                "description": "Listar todos os usuários do sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/usuario/{id}": {
+            "get": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Encontrar um Usuário pelo ID",
+                "description": "Será possível encontrar um usuário pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Atualizar um Usuário",
+                "description": "Será possível atualizar um Usuário pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuário ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "senha": "senha1234&*",
+                                "tipoUsuario": 1,
+                                "acessoAdm": 1,
+                                "idNivelAcesso": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Deletar um Usuário",
+                "description": "Será possível deletar um Usuário pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Usuario ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário inexistente!"
+                    }
+                }
+            }
+        },
+        "/statusCliente/": {
+            "post": {
+                "tags": ["StatusCliente"],
+                "summary": "Criar um novo Status de Cliente",
+                "description": "Será possível cadastrar um novo Status do Cliente",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "tipo": "ativo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusCliente"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["StatusCliente"],
+                "summary": "Listar Status Cliente",
+                "description": "Listar todos os Status Cliente.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/statusCliente/{id}": {
+            "get": {
+                "tags": ["StatusCliente"],
+                "summary": "Encontrar um Status Cliente pelo ID",
+                "description": "Será possível encontrar um Status Cliente pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Status Cliente ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusCliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Status do Cliente Inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["StatusCliente"],
+                "summary": "Atualizar um Status Cliente",
+                "description": "Será possível atualizar um Status Cliente pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Status Cliente ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "tipo": "inativo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusCliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Status do Cliente Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["StatusCliente"],
+                "summary": "Deletar um Status Cliente pelo ID",
+                "description": "Será possível deletar um Status Cliente pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Status Cliente ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusCliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Status do Cliente Inexistente!"
+                    }
+                }
+            }
+        },
+        "/cliente/": {
+            "post": {
+                "tags": ["Cliente"],
+                "summary": "Criar um novo Cliente",
+                "description": "Será possível cadastrar um novo Cliente",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "contrato": "Contrato Craido",
+                                "StatusCliente_idStatusCliente": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cliente"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Cliente"],
+                "summary": "Listar Clientes",
+                "description": "Listar todos os Clientes.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/cliente/{id}": {
+            "get": {
+                "tags": ["Cliente"],
+                "summary": "Encontrar um Cliente pelo ID",
+                "description": "Será possível encontrar um Cliente pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Cliente ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente Inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Cliente"],
+                "summary": "Atualizar um Cliente",
+                "description": "Será possível atualizar um Cliente pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Cliente ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "contrato": "contrato exemplo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Cliente"],
+                "summary": "Deletar um Cliente pelo ID",
+                "description": "Será possível deletar um Cliente pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Cliente ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente Inexistente!"
+                    }
+                }
+            }
+        },
+        "/clientePj/": {
+            "post": {
+                "tags": ["ClientePJ"],
+                "summary": "Criar um novo Cliente PJ",
+                "description": "Será possível cadastrar um novo Cliente PJ",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "cnpj": "12345678000300",
+                                "razaoSocial": "Razão Social Exemplo",
+                                "nomeFantasia": "Nome Fantasia Exemplo",
+                                "dataFundacao": "2023-01-29",
+                                "Cliente_idCliente": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientePj"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["ClientePJ"],
+                "summary": "Listar Clientes PJ",
+                "description": "Listar todos os Clientes PJ.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/clientePj/{cnpj}": {
+            "get": {
+                "tags": ["ClientePJ"],
+                "summary": "Encontrar um Cliente PJ pelo CNPJ",
+                "description": "Será possível encontrar um Cliente PJ pelo seu número de CNPJ.",
+                "parameters": [
+                    {
+                        "name": "cnpj",
+                        "in": "path",
+                        "description": "CNPJ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientePj"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente PJ Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["ClientePJ"],
+                "summary": "Deletar um Cliente PJ pelo CNPJ",
+                "description": "Será possível deletar um Cliente PJ pelo seu número de CNPJ.",
+                "parameters": [
+                    {
+                        "name": "cnpj",
+                        "in": "path",
+                        "description": "CNPJ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientePj"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente PJ Inexistente!"
+                    }
+                }
+            }
+        },
+        "/clienteCpf/": {
+            "post": {
+                "tags": ["ClienteCPF"],
+                "summary": "Criar um novo Cliente CPF",
+                "description": "Será possível cadastrar um novo Cliente CPF",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "cpf": "11122233344",
+                                "nome": "Nome Exemplo",
+                                "dataNasc": "2091-06-04",
+                                "Cliente_idCliente": 2,
+                                "usuario_idUsuario": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClienteCpf"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["ClienteCPF"],
+                "summary": "Listar Clientes CPF",
+                "description": "Listar todos os Clientes CPF.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/clienteCpf/{cpf}": {
+            "get": {
+                "tags": ["ClienteCPF"],
+                "summary": "Encontrar um Cliente CPF pelo CPF",
+                "description": "Será possível encontrar um Cliente CPF pelo seu número de CPF.",
+                "parameters": [
+                    {
+                        "name": "cpf",
+                        "in": "path",
+                        "description": "CPF",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClienteCpf"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente CPF Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["ClienteCPF"],
+                "summary": "Deletar um Cliente CPF pelo CPF",
+                "description": "Será possível deletar um Cliente CPF pelo seu número de CPF.",
+                "parameters": [
+                    {
+                        "name": "cpf",
+                        "in": "path",
+                        "description": "CPF",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClienteCpf"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Cliente CPF Inexistente!"
+                    }
+                }
+            }
+        },
+        "/tipocontrato/": {
+            "post": {
+                "tags": [
+                    "TipoContrato"
+                ],
+                "summary": "Criar um tipoContrato",
+                "description": "Será possível cadastrar um Tipo de Contrato.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "idTipoContrato": 1,
+                                "descricao": "Contrato Pessoa Física"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/tipoContrato"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "TipoContrato"
+                ],
+                "summary": "Listar Tipos de contrato",
+                "description": "Será possível listar todos os tipos de contrato no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/tipocontrato/{id}": {
+            "get": {
+                "tags": ["TipoContrato"],
+                "summary": "Encontrar um Tipo de Contrato pelo ID",
+                "description": "Será possível encontrar um Tipo de Contrato pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tipo Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/tipoContrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Tipo de Contrato Inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["TipoContrato"],
+                "summary": "Atualizar um Tipo de Contrato",
+                "description": "Será possível atualizar um Tipo de Contrato pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tipo Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "descricao": "Tipo Contrato alterado"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/tipoContrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Tipo Contrato Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["TipoContrato"],
+                "summary": "Deletar um Tipo Contrato pelo ID",
+                "description": "Será possível deletar um Tipo Contrato pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tipo Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/tipoContrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Tipo Contrato Inexistente!"
+                    }
+                }
+            }
+        },
+        "/funcionario/": {
+            "post": {
+                "tags": [
+                    "Funcionario"
+                ],
+                "summary": "Criar um novo funcionário",
+                "description": "Será possível cadastrar um novo funcionário para o sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "cpf": "07734567891",
+                                "nome": "Maria Clara",
+                                "email": "maria_clara@email.com",
+                                "telefones": "912345678",
+                                "funcao": "Tech Leader",
+                                "usuario_idUsuario": 10
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar funcionário"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Funcionario"
+                ],
+                "summary": "Listar Usuários",
+                "description": "Listar todos os funcionários do sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/funcionario/email/{email}": {
+            "get": {
+                "tags": ["Funcionario"],
+                "summary": "Encontrar um Funcionário pelo email",
+                "description": "Será possível encontrar um Funcionário pelo seu email.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Funcionário Inexistente!"
+                    }
+                }
+            },            
+            "put": {
+                "tags": ["Funcionario"],
+                "summary": "Atualizar um Funcionário",
+                "description": "Será possível atualizar um Funcionário pelo Email.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Funcionário ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "telefones": "982345678"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Funcionário Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Funcionario"],
+                "summary": "Deletar um Funcionário pelo CNPJ",
+                "description": "Será possível deletar um Funcionário pelo seu email.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Funcionário Inexistente!"
+                    }
+                }
+            }
+        },
+        "/endereco/": {
+            "post": {
+                "tags": ["Endereco"],
+                "summary": "Criar um novo Endereço",
+                "description": "Será possível cadastrar um novo Endereço para o sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "uf": "PE",
+                                "cep": "55590000",
+                                "cidade": "Recife",
+                                "bairro": "Recife Antigo",
+                                "rua": "Rua do Frevo",
+                                "numero": "200",
+                                "complemento": "Sem complemento",
+                                "obs": "Sem observação",
+                                "cliente_idCliente": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Endereco"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Endereco"],
+                "summary": "Listar Endereços",
+                "description": "Listar todos os Endereços do sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/endereco/{idCliente}": {
+            "get": {
+                "tags": ["Endereco"],
+                "summary": "Encontrar um Endereço pelo ID do Cliente",
+                "description": "Será possível encontrar um Endereço pelo ID do Cliente.",
+                "parameters": [
+                    {
+                        "name": "idCliente",
+                        "in": "path",
+                        "description": "ID do Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Endereco"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Endereço Inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Endereco"],
+                "summary": "Atualizar um Endereço",
+                "description": "Será possível atualizar um Endereço pelo ID do Cliente.",
+                "parameters": [
+                    {
+                        "name": "idCliente",
+                        "in": "path",
+                        "description": "ID do Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "uf": "PE",
+                                "cep": "55590000",
+                                "cidade": "Recife Atualizado",
+                                "bairro": "Recife Antigo Atualizado",
+                                "rua": "Rua do Frevo Atualizado",
+                                "numero": "200 Atualizado",
+                                "complemento": "Atualizado",
+                                "obs": "Atualizado"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Endereco"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Endereço Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Endereco"],
+                "summary": "Deletar um Endereço pelo ID do Cliente",
+                "description": "Será possível deletar um Endereço pelo ID do Cliente.",
+                "parameters": [
+                    {
+                        "name": "idCliente",
+                        "in": "path",
+                        "description": "ID do Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Endereco"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Endereço Inexistente!"
+                    }
+                }
+            }
+        },
+        "/telefone/": {
+            "post": {
+                "tags": ["Telefone"],
+                "summary": "Criar um novo Telefone",
+                "description": "Será possível cadastrar um novo Telefone para o sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "telefone": "81955554444",
+                                "Cliente_idCliente": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Telefone"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Telefone"],
+                "summary": "Listar Telefones",
+                "description": "Listar todos os Telefones do sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/telefone/telefoneCliente/{idCliente}": {
+            "get": {
+                "tags": ["Telefone"],
+                "summary": "Encontrar um Telefone pelo ID do Cliente",
+                "description": "Será possível encontrar um Telefone pelo ID do Cliente.",
+                "parameters": [
+                    {
+                        "name": "idCliente",
+                        "in": "path",
+                        "description": "ID do Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Telefone"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Telefone Inexistente!"
+                    }
+                }
+            }
+        },
+        "/telefone/telefoneFuncionario/{cpfFuncionario}": {
+            "get": {
+                "tags": ["Telefone"],
+                "summary": "Encontrar um Telefone pelo CPF do Funcionario",
+                "description": "Será possível encontrar um Telefone pelo CPF do Funcionario.",
+                "parameters": [
+                    {
+                        "name": "cpfFuncionario",
+                        "in": "path",
+                        "description": "CPF do Funcionario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Telefone"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Telefone Inexistente!"
+                    }
+                }
+            }
+        },
+        "/telefone/{id}": {
+            "put": {
+                "tags": ["Telefone"],
+                "summary": "Atualizar um Telefone",
+                "description": "Será possível atualizar um Telefone pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Telefone",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "telefone": "81911111111" 
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Endereco"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Endereço Inexistente!"
+                    }
+                }   
+            },
+            "delete": {
+                "tags": ["Telefone"],
+                "summary": "Deletar um Telefone pelo ID",
+                "description": "Será possível deletar um Telefone pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Telefone",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Telefone"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Telefone Inexistente!"
+                    }
+                }
+            }
+        },
+        "/email/": {
+            "post": {
+                "tags": ["Email"],
+                "summary": "Criar um novo Email",
+                "description": "Será possível cadastrar um novo Email no sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "email": "exemplo@email.com",
+                                "Cliente_idCliente": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Email"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Email"],
+                "summary": "Listar todos Email cadastrados no sistema",
+                "description": "Será possível listar todos Email cadastrados no sistema",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/email/cliente/{id}": {
+            "get": {
+                "tags": ["Email"],
+                "summary": "Encontrar um Email pelo ID do Cliente",
+                "description": "Será possível encontrar um Email pelo ID do Cliente.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Email"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email Inexistente!"
+                    }
+                }
+            }
+        },
+        "/email/funcionario/{cpf}": {
+            "get": {
+                "tags": ["Email"],
+                "summary": "Encontrar um Email pelo CPF do Funcionário",
+                "description": "Será possível encontrar um Email pelo CPF do Funcionário.",
+                "parameters": [
+                    {
+                        "name": "cpf",
+                        "in": "path",
+                        "description": "CPF do Funcionário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Email"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email Inexistente!"
+                    }
+                }
+            }
+        },
+        "/email/{id}": {
+            "put": {
+                "tags": ["Email"],
+                "summary": "Atualizar um Email",
+                "description": "Será possível atualizar um Email pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Email",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "email": "update@email.com" 
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Email"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email Inexistente!"
+                    }
+                }   
+            },
+            "delete": {
+                "tags": ["Email"],
+                "summary": "Deletar um Email",
+                "description": "Será possível deletar um Email pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Email",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Email"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email Inexistente!"
+                    }
+                }
+            }
+        },
+        "/contrato/": {
+            "post": {
+                "tags": [
+                    "Contrato"
+                ],
+                "summary": "Criar um Contrato",
+                "description": "Será possível cadastrar um Contrato.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "dataInicio": "2024-02-02",
+	                            "dataFinal": "2025-02-02",
+	                            "valor": "400",
+	                            "horaSR": "1",
+	                            "horaSC": "3",
+	                            "qtdBaias": 5,
+	                            "salaTrab": 200,
+	                            "idTipoContrato": 2,
+	                            "idCliente": 2	
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Contrato"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Contrato"
+                ],
+                "summary": "Listar Contratos",
+                "description": "Será possível listar todos os contrato no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/contrato/{id}": {
+            "get": {
+                "tags": ["Contrato"],
+                "summary": "Encontrar um Contrato pelo ID",
+                "description": "Será possível encontrar um Contrato pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Contrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Contrato Inexistente!"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Contrato"],
+                "summary": "Atualizar um Contrato",
+                "description": "Será possível atualizar um Contrato pelo ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "telefone": "81911111111",
+                                "dataInicio": "2024-02-02",
+                                "dataFinal": "2025-02-02",
+                                "valor": "400",
+                                "horaSR": "1",
+                                "horaSC": "3",
+                                "qtdBaias": 5,
+                                "salaTrab": 200,
+                                "dataAtualizacao": "2025-02-04"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Contrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Contrato Inexistente!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Contrato"],
+                "summary": "Deletar um Contrato pelo ID",
+                "description": "Será possível deletar um Contrato pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Contrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Tipo Contrato Inexistente!"
+                    }
+                }
+            }
+        },
+        "/testemunha/": {
+            "post": {
+                "tags": [
+                    "Testemunha"
+                ],
+                "summary": "Criar uma nova testemunha",
+                "description": "Será possível cadastrar uma Testemunha.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nome": "Ada Lovelace",
+	                            "cpf": "12345678921"	
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Testemunha"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Testemunha"
+                ],
+                "summary": "Listar Testemunhas",
+                "description": "Será possível listar todos as testemunhas no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/testemunha/{id}": {
+            "delete": {
+                "tags": ["Testemunha"],
+                "summary": "Deletar uma Testemunha pelo ID",
+                "description": "Será possível deletar uma Testemunha pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contrato ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Testemunha"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Testemunha Inexistente!"
+                    }
+                }
+            }
+        },
+        "/testemunhaContrato/": {
+            "post": {
+                "tags": [
+                    "Testemunha has Contrato"
+                ],
+                "summary": "Criar uma nova testemunha",
+                "description": "Será possível cadastrar uma Testemunha com um contrato.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "Testemunha_idTestemunha": 2,
+	                            "Contrato_idContrato": 8	
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/testemunhaContrato"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Testemunha has Contrato"
+                ],
+                "summary": "Listar Testemunha has Contrato",
+                "description": "Será possível listar todos as testemunhas com contrato no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        },
+        "/testemunhaContrato/{id}": {
+            "get": {
+                "tags": ["Testemunha has Contrato"],
+                "summary": "Encontrar um Contrato pelo ID",
+                "description": "Será possível encontrar um Contrato pelo seu número de ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Testemunha ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/testemunhaContrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Contrato Inexistente!"
+                    }
+                }
+            }
+        },
+        "/testemunhaContrato/{Testemunha_idTestemunha}/{Contrato_idContrato}": {
+            "delete": {
+                "tags": ["Testemunha has Contrato"],
+                "summary": "Deletar uma Testemunha e a ligação com o Contrato pelo ID",
+                "description": "Será possível deletar um Contrato pelo seu número de ID da testemunha, passando os números da Tesmunha e do contrato, exemplo: 2/8",
+                "parameters": [
+                    {
+                        "name": "Testemunha_idTestemunha",
+                        "in": "path",
+                        "description": "Testemunha ID",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "Contrato_idContrato",
+                        "in": "path",
+                        "description": "ID do Contrato",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/testemunhaContrato"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Testemunha não ligada ao Contrato selecionado!"
+                    }
+                }
+            }
+        },
+        "/agendamento/": {
+            "post": {
+                "tags": [
+                    "Agendamento"
+                ],
+                "summary": "Criar um agendamento de sala",
+                "description": "Será possível cadastrar um agendamento de sala.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "dataAgendamento": "2024-03-12", 
+                                "horaInicio": "12:00:00", 
+                                "horaFim": "12:30:00", 
+                                "autorizacao_idAutorizacao": 1, 
+                                "salas_idSala": 1, 
+                                "usuario_idUsuario": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Agendamento"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NivelAcesso": {
+                "type": "object",
+                "properties": {
+                    "idAcesso": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nivel": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Usuario": {
+                "type": "object",
+                "properties": {
+                    "login": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    },
+                    "tipoUsuario": {
+                        "type": "number"
+                    },
+                    "acessoAdm": {
+                        "type": "number"
+                    },
+                    "idNivelAcesso": {
+                        "type": "number"
+                    }
+                }
+            },
+            "StatusCliente": {
+                "type": "object",
+                "properties": {
+                    "idStatus": {
+                        "type": "number"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Cliente": {
+                "type": "object",
+                "properties": {
+                    "idCliente": {
+                        "type": "number"
+                    },
+                    "contrato": {
+                        "type": "string"
+                    },
+                    "StatusCliente_idStatusCliente": {
+                        "type": "number"
+                    },
+                    "dataCriacao": {
+                        "type": "date"
+                    },
+                    "dataAtualizacao": {
+                        "type": "date"
+                    }
+                }
+            },
+            "ClientePj": {
+                "type": "object",
+                "properties": {
+                    "cnpj": {
+                        "type": "string"
+                    },
+                    "razaoSocial": {
+                        "type": "string"
+                    },
+                    "nomeFatasia": {
+                        "type": "string"
+                    },
+                    "dataFundacao": {
+                        "type": "date"
+                    },
+                    "Cliente_idCliente": {
+                        "type": "number"
+                    }
+                }
+            },
+            "ClienteCpf": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "dataNasc": {
+                        "type": "date"
+                    },
+                    "Cliente_idCliente": {
+                        "type": "number"
+                    },
+                    "usuario_idUsuario": {
+                        "type": "number"
+                    }
+                }
+            },
+            "TipoContrato": {
+                "type": "object",
+                "properties": {
+                    "idTipoContrato:": {
+                        "type": "number"
+                    },
+                    "descricao": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Funcionario": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telefone": {
+                        "type": "string"
+                    },
+                    "funcao": {
+                        "type": "string"
+                    },
+                    "dataCriacao": {
+                        "type": "date"
+                    },
+                    "dataAtualizacao": {
+                        "type": "date"
+                    }
+                }
+            },
+            "Endereco": {
+                "type": "object",
+                "properties": {
+                    "uf": {
+                        "type": "string"
+                    },
+                    "cep": {
+                        "type": "string"
+                    },
+                    "cidade": {
+                        "type": "string"
+                    },
+                    "bairro": {
+                        "type": "string"
+                    },
+                    "rua": {
+                        "type": "string"
+                    },
+                    "numero": {
+                        "type": "string"
+                    },
+                    "complemento": {
+                        "type": "string"
+                    },
+                    "obs": {
+                        "type": "string"
+                    },
+                    "cliente_idCliente": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Telefone": {
+                "type": "object",
+                "properties": {
+                    "idTelefone": {
+                        "type": "number"
+                    },
+                    "telefone": {
+                        "type": "string"
+                    },
+                    "Cliente_idCliente": {
+                        "type": "number"
+                    },
+                    "Funcionario_cpf1": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Email": {
+                "type": "object",
+                "properties": {
+                    "idEmail": {
+                        "type": "number"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "Cliente_idCliente": {
+                        "type": "number"
+                    },
+                    "Funcionario_cpf": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Contrato": {
+                "type": "object",
+                "properties": {
+                    "idContrato:": {
+                        "type": "number"
+                    },
+                    "dataInicio": {
+                        "type": "date"
+                    },
+                    "dataFinal": {
+                        "type": "date"
+                    },
+                    "horaSR": {
+                        "type": "number"
+                    },
+                    "horaSC": {
+                        "type": "number"
+                    },
+                    "qtdBaias": {
+                        "type": "number"
+                    },
+                    "salaTrab": {
+                        "type": "number"
+                    },
+                    "dataCriacao": {
+                        "type": "date"
+                    },
+                    "dataAtualizacao": {
+                        "type": "date"
+                    },
+                    "tipocontrato_idTipoContrato": {
+                        "type": "number"
+                    },
+                    "cliente_idCliente": {
+                        "type": "number"
+                    }
+                }
+            }, 
+            "Testemunha": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Testemunha Has Contrato": {
+                "type": "object",
+                "properties": {
+                    "Testemunha_idTestemunha": {
+                        "type": "number"
+                    },
+                    "Contrato_idContrato": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Agendamento": {
+                "type": "object",
+                "properties": {
+                    "dataAgendamento": {
+                        "type": "date"
+                    },
+                    "horaInicio": {
+                        "type": "datetime"
+                    }, 
+                    "horaFim": {
+                        "type": "datetime"
+                    }, 
+                    "autorizacao_idAutorizacao": {
+                        "type": "number"
+                    },
+                    "salas_idSala": {
+                        "type": "number"
+                    }, 
+                    "usuario_idUsuario": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}
